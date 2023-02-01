@@ -1,7 +1,7 @@
 # paper: https://arxiv.org/pdf/1603.02754v3.pdf
 # doc: https://xgboost.readthedocs.io/en/stable/python/python_api.html#module-xgboost.sklearn
+# blog: https://zhuanlan.zhihu.com/p/562983875
 import xgboost as xgb
-import time
 from utils import load_iris, cal_acc, load_california_housing, cal_r2, cal_mse
 
 # 分类
