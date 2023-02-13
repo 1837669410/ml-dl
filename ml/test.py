@@ -1,7 +1,9 @@
+from utils import load_iris
+from sklearn.preprocessing import LabelBinarizer
 import numpy as np
 
-index = 9
+(x_train, y_train), (x_test, y_test), feature_names, target_names = load_iris(random_state=42)
 
-x = np.array([5.56, 5.70, 5.91, 6.40, 6.80, 7.05, 8.9, 8.7, 9, 9.05], dtype=float)
-print(np.sum(x) / len(x))
-print(x - np.sum(x) / len(x))
+y_train = LabelBinarizer().fit_transform(y_train)
+class_prob = y_train.mean(axis=0).reshape(1, -1)
+print(class_prob)
