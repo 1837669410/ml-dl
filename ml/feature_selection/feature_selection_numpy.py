@@ -2,6 +2,22 @@ import numpy as np
 import scipy.special as sc
 from utils import load_iris
 
+class StandardScaler:
+    # 标准化
+    def __init__(self):
+        pass
+
+    def fit(self, x):
+        self.mean = np.mean(x, axis=0)
+        self.std = np.std(x, axis=0)
+
+    def transform(self, x):
+        return (x - self.mean) / self.std
+
+    def fit_transform(self, x):
+        self.fit(x)
+        return self.transform(x)
+
 class VarianceSelect:
     # 方差选择器
     def __init__(self, threshold):
@@ -17,7 +33,6 @@ class VarianceSelect:
     def fit_transform(self, x):
         self.fit(x)
         return self.transform(x)
-
 
 class Chi2Select:
     # 卡方检验(卡方值越大差异越大)
@@ -56,6 +71,10 @@ class Chi2Select:
         return self.transform(x)
 
 (x_train, y_train), (x_test, y_test), feature_names, target_names = load_iris(random_state=42)
+
+# 标准化
+# standard = StandardScaler()
+# x_train = standard.fit_transform(x_train)
 
 # 方差过滤
 # vs = VarianceSelect(threshold=2)
