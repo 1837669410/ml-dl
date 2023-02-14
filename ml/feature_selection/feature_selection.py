@@ -1,4 +1,4 @@
-from sklearn.feature_selection import VarianceThreshold, SelectKBest, chi2, f_classif
+from sklearn.feature_selection import VarianceThreshold, SelectKBest, chi2, f_classif, mutual_info_classif
 from sklearn.preprocessing import StandardScaler
 from utils import load_iris
 
@@ -17,6 +17,10 @@ from utils import load_iris
 # c2 = SelectKBest(chi2, k=2)
 # x_train = c2.fit_transform(x_train, y_train)
 
-# F检验
+# F检验'
 # f = SelectKBest(f_classif, k=2)
 # x_train = f.fit_transform(x_train, y_train)
+
+# 互信息法
+# mic = SelectKBest(mutual_info_classif, k=2)
+# x_train = mic.fit_transform(x_train, y_train)
