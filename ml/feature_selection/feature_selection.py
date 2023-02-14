@@ -11,3 +11,7 @@ from utils import load_iris
 # 卡方检验
 # c2 = SelectKBest(chi2, k=2)
 # x_train = c2.fit_transform(x_train, y_train)
+
+# F检验
+# f = SelectKBest(f_classif, k=2)
+# x_train = f.fit_transform(x_train, y_train)
