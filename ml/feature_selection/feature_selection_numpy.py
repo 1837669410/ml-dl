@@ -43,7 +43,7 @@ class Chi2Select:
 
     def fit(self, x, y):
         observed, expected = self.chi2(x, y)
-        chi2_score = (observed - expected) ** 2 / expected
+        chi2_score = (observed - expected) ** 2 / expected   # 计算公式：sum((观察值 - 期望值) ** 2 / 期望值)
         self.chi2_score = chi2_score.sum(axis=0)
         self.p_score = sc.chdtrc(len(observed)-1, self.chi2_score)
 
