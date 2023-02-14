@@ -1,6 +1,6 @@
 import numpy as np
+import scipy.special as sc
 from utils import load_iris
-
 
 class VarianceSelect:
     # 方差选择器
@@ -20,9 +20,9 @@ class VarianceSelect:
 
 
 class Chi2Select:
-    # 卡方检验
-    def __init__(self, threshold):
-        self.threshold = threshold
+    # 卡方检验(卡方值越大差异越大)
+    def __init__(self, k):
+        self.k = k
 
     def chi2(self, x, y):
         y = self.LabelBinarizer(y)  # [None, n_classes]
@@ -43,9 +43,17 @@ class Chi2Select:
 
     def fit(self, x, y):
         observed, expected = self.chi2(x, y)
-        chisq = (observed - expected) ** 2 / expected
-        print(chisq.sum(axis=0))
+        chi2_score = (observed - expected) ** 2 / expected
+        self.chi2_score = chi2_score.sum(axis=0)
+        self.p_score = sc.chdtrc(len(observed)-1, self.chi2_score)
 
+    def transform(self, x):
+        chi2_index = np.argsort(self.chi2_score)[::-1][:self.k]
+        return x[:, chi2_index]
+
+    def fit_transform(self, x, y):
+        self.fit(x, y)
+        return self.transform(x)
 
 (x_train, y_train), (x_test, y_test), feature_names, target_names = load_iris(random_state=42)
 
@@ -55,5 +63,6 @@ class Chi2Select:
 # x_train = vs.transform(x_train)
 
 # 卡方检验
-chi2 = Chi2Select(threshold=100)
-chi2.fit(x_train, y_train)
+# chi2 = Chi2Select(k=3)
+# chi2.fit(x_train, y_train)
+# x_train = chi2.transform(x_train)
