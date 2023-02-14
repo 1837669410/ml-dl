@@ -9,5 +9,5 @@ from utils import load_iris
 # x_train = vs.transform(x_train)
 
 # 卡方检验
-c2 = SelectKBest(chi2, k=3)
-x_train = c2.fit_transform(x_train, y_train)
+# c2 = SelectKBest(chi2, k=2)
+# x_train = c2.fit_transform(x_train, y_train)
