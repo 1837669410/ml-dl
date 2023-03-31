@@ -1,9 +1,7 @@
-from utils import load_iris
-from sklearn.preprocessing import LabelBinarizer
 import numpy as np
+from sklearn.metrics import mutual_info_score
 
-(x_train, y_train), (x_test, y_test), feature_names, target_names = load_iris(random_state=42)
-
-y_train = LabelBinarizer().fit_transform(y_train)
-class_prob = y_train.mean(axis=0).reshape(1, -1)
-print(class_prob)
+x = np.array([1,2,3,4,5])
+y = np.array([2,3,4,5,6])
+mutual_info = mutual_info_score(x, y)
+print(mutual_info)
