@@ -30,3 +30,8 @@
 <div align="center">2023/3/31：开始继续更新，更新k-means的sklearn实现</div>
 
 <div align="center">2023/4/3：更新k-means的numpy实现,并添加可视化结果</center>
+
+# 使用说明
+
+- 1、git clone代码
+- 2、进入到ml文件然后右击鼠标用pycharm打开工程即可
