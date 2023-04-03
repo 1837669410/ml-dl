@@ -5,11 +5,12 @@ from sklearn.decomposition import PCA
 
 class KMeans():
 
-    def __init__(self, n, epoch=500):
+    def __init__(self, n, epoch=300):
         self.n = n   # 聚类类别数
         self.n_center = {}   # 每个类别的中心点
         self.sample_label = []   # 储存每个样本的类别
         self.epoch = epoch   # 循环迭代次数
+        self.clip = 1e-6    # 设置变化距离限制如果上一次变化和这一次距离变化小于该数字则直接停止训练
 
     def _get_init(self):
         # 初始化中心点
@@ -31,8 +32,11 @@ class KMeans():
         return sample_distance
 
     def cla_label(self, sample_distance):
+        total_distance = 0
         for i, v in sample_distance.items():
             self.sample_label.append(np.argmin(v))
+            total_distance += np.min(v)
+        return total_distance
 
     def cla_center(self):
         for i in range(self.n):
@@ -40,6 +44,7 @@ class KMeans():
             self.n_center[i] = np.mean(temp, axis=0)   # 重新计算中心点
 
     def fit(self, x):
+        pre_distance = 10000
         self.x = x
         # 1 初始化中心点
         self._get_init()
@@ -50,21 +55,24 @@ class KMeans():
             # 2.1 计算每个样本到中心点的距离
             sample_distance = self.cla_distance(self.n_center)
             # 2.2 得到每个样本的聚类类别
-            self.cla_label(sample_distance)
+            distance = self.cla_label(sample_distance)
+            if pre_distance - distance < self.clip:
+                break
+            pre_distance = distance
             # 2.3 根据类别更新中心点
             self.cla_center()
         # 更新sample_label的格式为np.ndarray
         self.sample_label = np.array(self.sample_label)
 
 
-(x_train, y_train), (x_test, y_test), _, target_names = load_iris(random_state=100)
+(x_train, y_train), (x_test, y_test), _, target_names = load_iris()
 print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
 
 model = KMeans(n=3)
 model.fit(x_train)
 
 # 可视化
-pca = PCA(n_components=2, random_state=100)
+pca = PCA(n_components=2)
 pca.fit(x_train)
 x_train = pca.transform(x_train)
 
