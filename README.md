@@ -7,9 +7,9 @@
 
 # 更新日记
 
-<center>更新日记</center>
+<div align="center">更新日记</div>
 
-<center>2023/3/31：开始继续更新，更新k-means的sklearn实现</center>
+<div align="center">2023/3/31：开始继续更新，更新k-means的sklearn实现</div>
 
-<center>2023/4/3：更新k-means的numpy实现,并添加可视化结果</center>
+<div align="center">2023/4/3：更新k-means的numpy实现,并添加可视化结果</center>
 
