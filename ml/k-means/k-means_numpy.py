@@ -29,7 +29,6 @@ class KMeans():
             for i in range(1, self.n):
                 sample_distance = np.zeros(shape=[self.x.shape[0], ])   # 样本到现有中心点的距离总距离
                 for j in list(self.n_center.keys()):
-                    print(i, j)
                     sample_distance += (np.sum((self.x - self.n_center[j]) ** 2, axis=1))
                 choose_prob = sample_distance / np.sum(sample_distance)
                 choose_point = np.random.choice(np.arange(0, self.x.shape[0]), p=choose_prob)
