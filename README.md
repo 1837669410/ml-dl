@@ -31,6 +31,8 @@
 
 <div align="center">2023/4/3：更新k-means的numpy实现,并添加可视化结果</div>
 
+<div align="center">2023/4/4：更新k-means_numpy的kmeans++初始化方法的实现</div>
+
 
 
 # 使用说明
